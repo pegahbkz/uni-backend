@@ -4,7 +4,7 @@
   "description": "A uni website using Node, Express & MongoDB",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodemon server.js"
   },
   "keywords": [
     "node",
@@ -12,5 +12,13 @@
     "mongo"
   ],
   "author": "pegahbeikzadeh",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.5"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.22"
+  }
 }
