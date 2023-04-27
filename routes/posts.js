@@ -12,19 +12,19 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/admin/Professor', (req, res) => {
-    res.send('admin prof')
+    res.send('post admin prof')
 })
 
 router.get('/admin/student', (req, res) => {
-    res.send('admin student')
+    res.send('post admin student')
 })
 
 router.get('/admin/manager', (req, res) => {
-    res.send('admin manager')
+    res.send('post admin manager')
 })
 
 router.get('/course', (req, res) => {
-    res.send('course')
+    res.send('post course')
 })
 
 module.exports = router

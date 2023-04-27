@@ -23,9 +23,12 @@ app.use(express.json())
 
 //import routes
 const postsRoute = require('./routes/posts')
+const getsRoute = require('./routes/gets')
+
 
 //middleware
 app.use('/posts', postsRoute)
+app.use('/gets', getsRoute)
 
 //listen at environment valuable port or 3000
 //kill -9 $(lsof -t -i:3000)
