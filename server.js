@@ -11,12 +11,12 @@ const app = express()
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
 
 //check for error in connecting to database
-const db = mongoose.connection
-db.on('error', (error) => 
+const dbconnection = mongoose.connection
+dbconnection.on('error', (error) => 
   console.error(error))
 
 //log message when we connect to database for the first time
-db.once('open', () =>
+dbconnection.once('open', () =>
   console.log('Connected to database'))
 
 app.use(express.json())
