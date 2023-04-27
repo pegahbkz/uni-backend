@@ -28,4 +28,5 @@ const studentSchema = new mongoose.Schema({
     }
 })
 
+//extend user and add new properties
 module.exports = User.discriminator('Student', studentSchema);
