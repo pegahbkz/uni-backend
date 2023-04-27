@@ -1,6 +1,7 @@
 //fetch libraries
 const express = require('express')
 const router = express.Router()
+const getFunction = require('./getFunctions')
 
 //fetch models
 const User = require('../models/user')
@@ -27,8 +28,8 @@ router.get('/admin/Professors', async (req, res) => {
 })
 
 //get one professor
-router.get('/admin/Professor/:id', getProfessor, (req, res) => {
-    res.send(res.professor.firstname)
+router.get('/admin/Professor/:id', getFunction.getProfessor, (req, res) => {
+    res.json(res.professor)
 })
 
 //get all students
@@ -44,8 +45,8 @@ router.get('/admin/students', async (req, res) => {
 })
 
 //get one student
-router.get('/admin/student/:id', getStudent, (req, res) => {
-    res.send(res.student.firstname)
+router.get('/admin/student/:id', getFunction.getStudent, (req, res) => {
+    res.json(res.student)
 })
 
 //get all managers
@@ -61,8 +62,8 @@ router.get('/admin/managers', async (req, res) => {
 })
 
 //get one manager
-router.get('/admin/manager/:id', getManager, (req, res) => {
-    res.send(res.manager.firstname)
+router.get('/admin/manager/:id', getFunction.getManager, (req, res) => {
+    res.json(res.manager)
 })
 
 //get all courses
@@ -76,54 +77,6 @@ router.get('/courses', async (req, res) => {
         res.status(500).json({ message : err.message})
     }
 })
-
-async function getProfessor(req, res, next) {
-    let pofessor
-    try {
-        professor = await Professor.findById(req.params.id)
-        if(professor == null) {
-            //404 not found
-            return res.status(404)({message: 'Cannot find professor.'})
-        }
-    }
-    catch (err){
-        return res.status(500).json({message : err.message})
-    }
-    res.professor = professor
-    next()
-}
-
-async function getStudent(req, res, next) {
-    let student
-    try {
-        student = await Student.findById(req.params.id)
-        if(student == null) {
-            //404 not found
-            return res.status(404)({message: 'Cannot find student.'})
-        }
-    }
-    catch (err){
-        return res.status(500).json({message : err.message})
-    }
-    res.student = student
-    next()
-}
-
-async function getManager(req, res, next) {
-    let manager
-    try {
-        manager = await Manager.findById(req.params.id)
-        if(manager == null) {
-            //404 not found
-            return res.status(404)({message: 'Cannot find manager.'})
-        }
-    }
-    catch (err){
-        return res.status(500).json({message : err.message})
-    }
-    res.manager = manager
-    next()
-}
 
 
 module.exports = router

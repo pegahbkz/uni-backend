@@ -1,5 +1,6 @@
 //fetch libraries
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const Course = require('./course')
 
 const availablecourseSchema = new mongoose.Schema({
