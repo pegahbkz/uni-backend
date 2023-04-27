@@ -1,28 +1,31 @@
-const userSchema = new mongoose.Schema({
-    firstname: {
+const mongoose = require('mongoose')
+const User = require('./user')
+
+const studentSchema = new mongoose.Schema({
+    degree: {
         type: String,
         required: true
     },
-    lastname: {
+    year: {
         type: String,
         required: true
     },
-    id: {
+    term: {
         type: String,
         required: true
     },
-    password: {
+    average: {
         type: String,
         required: true
     },
-    email: {
+    department: {
         type: String,
         required: true
     },
-    phonenumber: {
+    major: {
         type: String,
         required: true
     }
 })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = User.discriminator('Student', studentSchema);
