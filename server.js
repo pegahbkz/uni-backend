@@ -21,8 +21,11 @@ db.once('open', () =>
 
 app.use(express.json())
 
-//routes
+//import routes
+const postsRoute = require('./routes/posts')
 
+//middleware
+app.use('/posts', postsRoute)
 
 //listen at environment valuable port or 3000
 //kill -9 $(lsof -t -i:3000)
