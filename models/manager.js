@@ -2,17 +2,17 @@
 const mongoose = require('mongoose')
 const User = require('./user')
 
-const directorSchema = new mongoose.Schema({
+const managerSchema = new mongoose.Schema({
     department: {
         type: String,
         required: true
     },
     role: {
         type: String,
-        enum: ['user', 'director'],
-        default: 'director'
+        enum: ['user', 'manager'],
+        default: 'manager'
       }
 })
 
 //extend user and add new properties
-module.exports = User.discriminator('Director', directorSchema);
+module.exports = User.discriminator('Manager', managerSchema);
