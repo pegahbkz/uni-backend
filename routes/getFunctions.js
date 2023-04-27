@@ -2,7 +2,6 @@
 const express = require('express')
 const router = express.Router()
 
-
 //fetch models
 const User = require('../models/user')
 const Admin = require('../models/admin')
@@ -13,7 +12,7 @@ const Course = require('../models/course')
 
 
 async function getProfessor(req, res, next) {
-    let pofessor
+    let professor
     try {
         professor = await Professor.findById(req.params.id)
         if(professor == null) {
@@ -57,5 +56,21 @@ async function getManager(req, res, next) {
         return res.status(500).json({message : err.message})
     }
     res.manager = manager
+    next()
+}
+
+async function getCourse(req, res, next) {
+    let course
+    try {
+        course = await Course.findById(req.params.id)
+        if(course == null) {
+            //404 not found
+            return res.status(404)({message: 'Cannot find course.'})
+        }
+    }
+    catch (err){
+        return res.status(500).json({message : err.message})
+    }
+    res.course = course
     next()
 }
