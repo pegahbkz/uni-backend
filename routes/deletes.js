@@ -1,11 +1,13 @@
 //fetch libraries
 const express = require('express')
 const router = express.Router()
+const getFunction = require('./getFunctions')
+
 
 //fetch models
 const User = require('../models/user')
 const Admin = require('../models/admin')
-const Director = require('../models/manager')
+const Manager = require('../models/manager')
 const Professor = require('../models/Professor')
 const Course = require('../models/course')
 
@@ -15,63 +17,24 @@ router.delete('/', (req, res) => {
 })
 
 
-router.delete('/admin/Professor/:id', async (req, res) => {
-
-    }) 
+router.delete('/admin/Professor/:id', getFunction.getProfessor , async (req, res) => {
     try {
-        const newProfessor = await professor.save()
-        //201: successfully created object
-        res.status(201).json(newProfessor)
+        await res.professor.remove()
+        res.json({ message : 'deleted'})
     }
     catch (err) {
-        //400: wrong user input
-        res.status(400).json({message : err.message})
+        res.status(500).json({message : err.message})
     }
-})
-
-router.delete('/admin/manager/:id', async (req, res) => {
-
 }) 
-try {
-    const newProfessor = await professor.save()
-    //201: successfully created object
-    res.status(201).json(newProfessor)
-}
-catch (err) {
-    //400: wrong user input
-    res.status(400).json({message : err.message})
-}
-})
 
-router.delete('/course/:id', async (req, res) => {
-
-}) 
-try {
-    const newProfessor = await professor.save()
-    //201: successfully created object
-    res.status(201).json(newProfessor)
-}
-catch (err) {
-    //400: wrong user input
-    res.status(400).json({message : err.message})
-}
-})
-
-
-async function getProfessor(req, res, next) {
-    let rpofessor
+router.delete('/admin/manager/:id', getFunction.getManager , async (req, res) => {
     try {
-        professor = await Professor.findById(req.params.id)
-        if(professor == null) {
-            //404 not found
-            return res.status(404)({message: 'Cannot find professor.'})
-        }
+        await res.manager.remove()
+        res.json({ message : 'deleted'})
     }
-    catch (err){
-        return res.status(500).json({message : err.message})
+    catch (err) {
+        res.status(500).json({message : err.message})
     }
-    res.professor = professor
-    next()
-}
+}) 
 
 module.exports = router
