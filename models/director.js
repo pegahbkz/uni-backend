@@ -6,7 +6,12 @@ const directorSchema = new mongoose.Schema({
     department: {
         type: String,
         required: true
-    }
+    },
+    role: {
+        type: String,
+        enum: ['user', 'director'],
+        default: 'director'
+      }
 })
 
 //extend user and add new properties

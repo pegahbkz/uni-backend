@@ -26,7 +26,12 @@ const studentSchema = new mongoose.Schema({
     major: {
         type: String,
         required: true
-    }
+    },
+    role: {
+        type: String,
+        enum: ['user', 'student'],
+        default: 'student'
+      }
 })
 
 //extend user and add new properties
