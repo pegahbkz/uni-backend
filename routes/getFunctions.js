@@ -74,3 +74,5 @@ async function getCourse(req, res, next) {
     res.course = course
     next()
 }
+
+module.exports = { getProfessor, getStudent, getManager, getCourse}
