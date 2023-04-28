@@ -5,7 +5,7 @@ const router = express.Router()
 //fetch models
 const User = require('../models/user')
 const Admin = require('../models/admin')
-const Director = require('../models/manager')
+const Manager = require('../models/manager')
 const Professor = require('../models/Professor')
 
 
@@ -18,17 +18,14 @@ router.post('/login', (req, res) => {
 })
 
 router.post('/admin/Professor', async (req, res) => {
+    const {firstname, lastname, id, password, email, 
+        phonenumber, rank, department, major} = req.body
+
     const professor = new Professor({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        id: req.body.id,
-        password: req.body.password,
-        email: req.body.email,
-        phonenumber: req.body.phonenumber,
-        rank: req.body.rank,
-        department: req.body.department,
-        major: req.body.major
+        firstname, lastname, id, password, email, 
+        phonenumber, rank, department, major
     }) 
+
     try {
         const newProfessor = await professor.save()
         //201: successfully created object
@@ -40,16 +37,61 @@ router.post('/admin/Professor', async (req, res) => {
     }
 })
 
-router.post('/admin/student', (req, res) => {
-    res.send('post admin student')
+router.post('/admin/student',async (req, res) => {
+    const {firstname, lastname, id, password, email, 
+        phonenumber, degree, year, term, average, 
+        department, major} = req.body
+
+    const student = new Student({
+        firstname, lastname, id, password, email, 
+        phonenumber, degree, year, term, average, 
+        department, major}) 
+
+    try {
+        const newStudent = await student.save()
+        //201: successfully created object
+        res.status(201).json(newStudent)
+    }
+    catch (err) {
+        //400: wrong user input
+        res.status(400).json({message : err.message})
+    }
 })
 
-router.post('/admin/manager', (req, res) => {
-    res.send('post admin manager')
+router.post('/admin/manager', async (req, res) => {
+    const {firstname, lastname, id, password, email, 
+        phonenumber, department} = req.body
+
+    const manager = new Manager({
+        firstname, lastname, id, password, email, 
+        phonenumber, department}) 
+
+    try {
+        const newManager = await manager.save()
+        //201: successfully created object
+        res.status(201).json(newManager)
+    }
+    catch (err) {
+        //400: wrong user input
+        res.status(400).json({message : err.message})
+    }
 })
 
-router.post('/course', (req, res) => {
-    res.send('post course')
+router.post('/course',async (req, res) => {
+    const {name, prerequisites, requisites, credits} = req.body
+
+    const course = new Course(
+        {name, prerequisites, requisites, credits}) 
+        
+    try {
+        const newCourse = await course.save()
+        //201: successfully created object
+        res.status(201).json(newCourse)
+    }
+    catch (err) {
+        //400: wrong user input
+        res.status(400).json({message : err.message})
+    }
 })
 
 module.exports = router
