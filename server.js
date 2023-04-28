@@ -31,12 +31,9 @@ const patchesRoute = require('./routes/patches')
 //middleware
 app.use('/post', postsRoute)
 app.use('/get', getsRoute)
-app.use('/delete', getsRoute)
-app.use('/patch', getsRoute)
+app.use('/delete', deletesRoute)
+app.use('/patch', patchesRoute)
 
-//middleware
-app.use('/posts', postsRoute)
-app.use('/gets', getsRoute)
 
 //listen at environment valuable port or 3000
 //kill -9 $(lsof -t -i:3000)
