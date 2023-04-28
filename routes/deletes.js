@@ -13,7 +13,7 @@ const Course = require('../models/course')
 
 
 router.delete('/', (req, res) => {
-    res.send('Posts')
+    res.send('deletes')
 })
 
 //delete professor (admin only)
