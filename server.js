@@ -1,10 +1,10 @@
-require('dotenv').config()
-
 
 //fetch libraries
 const express = require("express")
 const mongoose = require('mongoose')
+require('dotenv').config()
 
+//create app
 const app = express()
 
 //connect server to mongoose
@@ -19,10 +19,20 @@ db.on('error', (error) =>
 db.once('open', () =>
   console.log('Connected to database'))
 
+//initialize app
 app.use(express.json())
 
-//routes
+//import routes
+const postsRoute = require('./routes/posts')
+const getsRoute = require('./routes/gets')
+const deletesRoute = require('./routes/deletes')
+const patchesRoute = require('./routes/patches')
 
+//middleware
+app.use('/post', postsRoute)
+app.use('/get', getsRoute)
+app.use('/delete', getsRoute)
+app.use('/patch', getsRoute)
 
 //listen at environment valuable port or 3000
 //kill -9 $(lsof -t -i:3000)
