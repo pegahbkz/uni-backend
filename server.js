@@ -35,10 +35,7 @@ dbconnection.once('open', () =>
 
 
 
-app.get('/', (req, res) => {
-  res.send("hello world")
-})
-
+app.use('/', require('./routes/index.js'));
 
 
 
