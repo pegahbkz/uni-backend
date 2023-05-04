@@ -33,6 +33,8 @@ dbconnection.once('open', () =>
 
 
 
+
+
 app.get('/', (req, res) => {
   res.send("hello world")
 })
@@ -40,10 +42,13 @@ app.get('/', (req, res) => {
 
 
 
+
 //listen at environment valuable port or 3000
-//kill -9 $(lsof -t -i:3000)
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`)
-});
+//kill -9 $(lsof -t -i:8080)
+
+const PORT = process.env.port || 8080 
+
+app.listen(PORT,()=>{
+    console.log(`listening on port ${PORT}`)
+})
 

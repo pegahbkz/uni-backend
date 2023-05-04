@@ -47,6 +47,7 @@ const courseSchema = new mongoose.Schema({
     },
     capacity: {
         type: Number,
+
     },
     term: {
         type: String,

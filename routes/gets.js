@@ -12,8 +12,12 @@ const Course = require('../models/course')
 
 
 
+
 router.get('/', (req, res) => {
     res.send('Gets')
+
+
+
 })
 
 //get all professors (admin only)
