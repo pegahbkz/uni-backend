@@ -11,8 +11,9 @@ const Professor = require('../models/Professor')
 const Course = require('../models/course')
 
 
-router.get('/', async (req, res) => {
 
+router.get('/', (req, res) => {
+    res.send('Gets')
 })
 
 //get all professors (admin only)
