@@ -18,6 +18,38 @@ const courseSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    classDate: {
+        type: Date,
+        default: Date.now
+    },
+    classTime: {
+        type: String,
+        match: /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/,
+        default: '00:00'
+    },
+    examDate: {
+        type: Date,
+        default: Date.now
+    },
+    examTime: {
+        type: String,
+        match: /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/,
+        default: '00:00'
+    },
+    examLocation: {
+        type: String,
+    },
+    professor: {
+        type: Schema.Types.ObjectID,
+        ref: 'Professor'
+    },
+    capacity: {
+        type: Number,
+        required: true
+    },
+    term: {
+        type: String,
+    },
     role: {
         type: String,
         enum: ['course', 'availablecourse'],

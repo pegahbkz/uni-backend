@@ -3,8 +3,13 @@ const express = require('express')
 const router = express.Router()
 
 
+<<<<<<< Updated upstream
 router.get('/', (req, res) => {
     res.send('Gets')
+=======
+router.get('/', async (req, res) => {
+    res.json('hi')
+>>>>>>> Stashed changes
 })
 
 router.get('/admin/Professors', (req, res) => {
