@@ -1,18 +1,12 @@
-require('dotenv').config()
-
 
 //fetch libraries
-<<<<<<< Updated upstream
 const express = require("express")
 const mongoose = require('mongoose')
 
-=======
 require('dotenv').config()
-const express = require("express")
->>>>>>> Stashed changes
+
 const app = express()
 
-const mongoose = require('mongoose')
 
 //connect server to mongoose
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
@@ -25,22 +19,22 @@ dbconnection.on('error', (error) =>
 dbconnection.once('open', () =>
   console.log('Connected to database'))
 
-<<<<<<< Updated upstream
-=======
 
-//initialize app
->>>>>>> Stashed changes
 app.use(express.json())
 
 
 //import routes
 const postsRoute = require('./routes/posts')
 const getsRoute = require('./routes/gets')
-
+const deletesRoute = require('./routes/deletes')
+const patchesRoute = require('./routes/patches')
 
 //middleware
-app.use('/posts', postsRoute)
-app.use('/gets', getsRoute)
+app.use('/post', postsRoute)
+app.use('/get', getsRoute)
+app.use('/delete', deletesRoute)
+app.use('/patch', patchesRoute)
+
 
 
 //listen at environment valuable port or 3000

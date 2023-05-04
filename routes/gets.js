@@ -1,8 +1,17 @@
 //fetch libraries
 const express = require('express')
 const router = express.Router()
+const getFunction = require('./getFunctions')
+
+//fetch models
+const User = require('../models/user')
+const Admin = require('../models/admin')
+const Manager = require('../models/manager')
+const Professor = require('../models/Professor')
+const Course = require('../models/course')
 
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 router.get('/', (req, res) => {
     res.send('Gets')
@@ -10,30 +19,113 @@ router.get('/', (req, res) => {
 router.get('/', async (req, res) => {
     res.json('hi')
 >>>>>>> Stashed changes
+=======
+router.get('/', async (req, res) => {
+
+>>>>>>> server
 })
 
-router.get('/admin/Professors', (req, res) => {
-    res.send('get admin profs')
+//get all professors (admin only)
+router.get('/admin/Professors', async (req, res) => {
+    try {
+        const professors = await Professor.find()
+        res.json(professors)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
 })
 
-router.get('/admin/students', (req, res) => {
-    res.send('get admin students')
+//get all professors (manager)
+router.get('/Professors', async (req, res) => {
+    try {
+        const professors = await Professor.find()
+        res.json(professors)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
 })
 
-router.get('/admin/managers', (req, res) => {
-    res.send('get admin managers')
+//get one professor (admin only)
+router.get('/admin/Professor/:id', getFunction.getProfessor, (req, res) => {
+    res.json(res.professor)
 })
 
-router.get('/courses', (req, res) => {
-    res.send('get courses')
+//get one professor (manager)
+router.get('/Professor/:id', getFunction.getProfessor, (req, res) => {
+    res.json(res.professor)
 })
 
-router.get('/studenrs', (req, res) => {
-    res.send('get students')
+//get all students (admin only)
+router.get('/admin/students', async (req, res) => {
+    try {
+        const students = await Student.find()
+        res.json(students)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
 })
 
-router.get('/professors', (req, res) => {
-    res.send('get profs')
+//get all students (manager)
+router.get('/students', async (req, res) => {
+    try {
+        const students = await Student.find()
+        res.json(students)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
 })
+
+//get one student (admin only)
+router.get('/admin/student/:id', getFunction.getStudent, (req, res) => {
+    res.json(res.student)
+})
+
+//get one student (manager)
+router.get('/student/:id', getFunction.getStudent, (req, res) => {
+    res.json(res.student)
+})
+
+//get all managers (admin only)
+router.get('/admin/managers', async (req, res) => {
+    try {
+        const managers = await Manager.find()
+        res.json(managers)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
+})
+
+//get one manager (admin only)
+router.get('/admin/manager/:id', getFunction.getManager, (req, res) => {
+    res.json(res.manager)
+})
+
+//get all courses
+router.get('/courses', async (req, res) => {
+    try {
+        const courses = await Course.find()
+        res.json(courses)
+    }
+    catch(err) {
+        //error on server and db, not user.
+        res.status(500).json({ message : err.message})
+    }
+})
+
+//get one course
+router.get('/course/:id', getFunction.getCourse, (req, res) => {
+    res.json(res.course)
+})
+
 
 module.exports = router
