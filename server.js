@@ -1,38 +1,43 @@
-
-//fetch libraries
-const express = require("express")
-const mongoose = require('mongoose')
 require('dotenv').config()
 
-//create app
+
+const express = require("express")
 const app = express()
 
-//connect server to mongoose
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+app.use(express.json())
 
-//check for error in connecting to database
+
+const mongoose = require('mongoose')
+
+// const dbconnection = async () =>
+// {
+//   try {
+//     const conn = await mongoose.connect(process.env.DB_URL, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//       useFindAndModify: false
+//     })
+//     console.log('Connected to database')
+//   }
+//   catch(err){
+//     console.log(err)
+//   }
+// }
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
 const dbconnection = mongoose.connection
 dbconnection.on('error', (error) => 
   console.error(error))
 
-//log message when we connect to database for the first time
 dbconnection.once('open', () =>
   console.log('Connected to database'))
 
-//initialize app
-app.use(express.json())
 
-//import routes
-const postsRoute = require('./routes/posts')
-const getsRoute = require('./routes/gets')
-const deletesRoute = require('./routes/deletes')
-const patchesRoute = require('./routes/patches')
 
-//middleware
-app.use('/post', postsRoute)
-app.use('/get', getsRoute)
-app.use('/delete', deletesRoute)
-app.use('/patch', patchesRoute)
+app.get('/', (req, res) => {
+  res.send("hello world")
+})
+
+
 
 
 //listen at environment valuable port or 3000
