@@ -23,8 +23,11 @@ const mongoose = require('mongoose')
 //     console.log(err)
 //   }
 // }
+
+
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
 const dbconnection = mongoose.connection
+
 dbconnection.on('error', (error) => 
   console.error(error))
 
@@ -43,7 +46,7 @@ app.use('/', require('./routes/index.js'));
 //listen at environment valuable port or 3000
 //kill -9 $(lsof -t -i:8080)
 
-const PORT = process.env.port || 8080 
+const PORT = process.env.port || 3000 
 
 app.listen(PORT,()=>{
     console.log(`listening on port ${PORT}`)
