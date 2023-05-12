@@ -41,7 +41,7 @@ router.post('/Professor', async (req, res) => {
     try {
         await professor.save()
         //201: successfully created object
-        res.status(201).json(newProfessor)
+        //res.status(201).json(professor)
         return res.send(professor)
     }
     catch (err) {
@@ -55,8 +55,7 @@ router.put('/Professor/:id', async (req, res) => {
         phonenumber, role, professorObject} = req.body
 
     try {
-        const professor = await User.findByIdAndUpdate(req.params.id, {name, idnumber, password, email, 
-            phonenumber, role, professorObject}, {new: true} )
+        const professor = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
         if(professor == null) {
             //404 not found
             return res.status(404)({message: 'Cannot find professor.'})
