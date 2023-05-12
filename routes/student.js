@@ -39,10 +39,10 @@ router.get('/:id', isManager, async (req, res) => {
     }
 })
 
-router.put('/:id',  async (req, res) => {
+router.put('/:id', async (req, res) => {
     const {name, idnumber, password, email, 
         phonenumber, department, role, degree, year, term, average} = req.body
-
+    
     try {
         const student = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
         if(student == null || student.role != "student") {
