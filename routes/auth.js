@@ -1,36 +1,26 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
+const jwt = require("jsonwebtoken")
 const User = require('./models/user.js')
 
-const router = express.Router()
 
-router.post('/login', async (req, res) => {
-  const { name, password } = req.body
+
+const auth = (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) {
+    return res.status(401).send('No token, authorization denied');
+  }
 
   try {
-    // Check if user exists
-    const user = await User.findOne({ name });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // Check if password is correct
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
-    }
-
-    // Password is valid, create a JWT token and send it in response
-    const token = createToken(user._id);
-    return res.status(200).json({ token });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Internal server error' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded.user;
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(401).send('Invalid token');
   }
-});
+};
 
-function createToken(userId) {
-  // implement your own token creation logic here, using a library like jsonwebtoken
-}
+module.exports = auth;
 
-module.exports = router;
+

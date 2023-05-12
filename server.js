@@ -39,12 +39,7 @@ dbconnection.once('open', () =>
 
 
 app.use('/', require('./routes/index.js'));
-
-
-
-
-//listen at environment valuable port or 3000
-//kill -9 $(lsof -t -i:8080)
+//app.use('/', require('./routes/auth.js'));
 
 const PORT = process.env.port || 3000 
 

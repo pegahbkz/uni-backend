@@ -77,9 +77,9 @@ const userSchema = new mongoose.Schema({
         enum: ['student', 'professor', 'manager', 'admin'],
         required: true
     },
-    student: studentSchema,
-    professor: professorSchema,
-    manager: managerSchema
+    studentObject: studentSchema,
+    professorObject: professorSchema,
+    managerObject: managerSchema
 })
 
 module.exports = mongoose.model('User', userSchema);
