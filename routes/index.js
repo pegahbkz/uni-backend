@@ -1,13 +1,12 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
 const router = express.Router()
 const jwt = require("jsonwebtoken")
 const User = require('../models/user')
-const authenticate = require('../middleware/auth.js')
+//const authenticate = require('../middleware/auth.js')
 
 //------------Admin-------------//
 
-router.get('/admin/professors', authenticate ,async (req, res) => {
+router.get('/admin/professors' ,async (req, res) => {
     try {
         const professors = await User.find({role: "professor"})
         res.json(professors)
