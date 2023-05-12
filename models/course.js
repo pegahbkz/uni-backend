@@ -26,7 +26,6 @@ const courseSchema = new mongoose.Schema({
     },
     classTime: {
         type: String,
-        match: /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/,
         default: '00:00'
     },
     examDate: {
@@ -35,7 +34,6 @@ const courseSchema = new mongoose.Schema({
     },
     examTime: {
         type: String,
-        match: /^([01]\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/,
         default: '00:00'
     },
     examLocation: {

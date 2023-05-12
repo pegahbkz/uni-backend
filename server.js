@@ -37,7 +37,7 @@ dbconnection.once('open', () =>
 
 
 app.use('/api', require('./routes/index.js'))
-//app.use('/auth', require('./routes/login.js'));
+app.use('/authenticate', require('./routes/login.js'));
 
 const PORT = process.env.port || 3000 
 
