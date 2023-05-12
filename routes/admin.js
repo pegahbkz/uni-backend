@@ -3,7 +3,7 @@ const router = express.Router()
 const User = require('../models/user')
 const authenticate = require('../middleware/auth.js')
 
-router.get('/professor/all'  ,async (req, res) => {
+router.get('/professor/all' ,async (req, res) => {
     try {
         const professors = await User.find({role: "professor"})
         res.json(professors)
@@ -27,7 +27,7 @@ router.get('/student/all', async (req, res) => {
 
 router.get('/manager/all', async (req, res) => {
     try {
-        const managers = await User.find({role: "managers"})
+        const managers = await User.find({role: "manager"})
         res.json(managers)
     }
     catch(err) {
@@ -86,7 +86,7 @@ router.get('/manager/:id', async (req, res) => {
             res.status(404).json({message : "user not found"})
             return
         }
-        if(student.role != "manager") {
+        if(manager.role != "manager") {
             //404 not found
             res.status(404).json({message : "user is not a manager"})
             return
@@ -101,11 +101,10 @@ router.get('/manager/:id', async (req, res) => {
 
 router.post('/professor', async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, professorObject} = req.body
+        phonenumber, department, role, rank, major} = req.body
     
-    const professor = new User({
-        name, idnumber, password, email, 
-            phonenumber, role, professorObject}
+    const professor = new User({name, idnumber, password, email, 
+        phonenumber, department, role, rank, major}
     ) 
 
     try {
@@ -123,11 +122,11 @@ router.post('/professor', async (req, res) => {
 
 router.post('/student', async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, studentObject} = req.body
+        phonenumber, department, role, degree, year, term, average} = req.body
     
-    const student = new User({
-        name, idnumber, password, email, 
-            phonenumber, role, studentObject}
+    const student = new User(
+        {name, idnumber, password, email, 
+            phonenumber, department, role, degree, year, term, average}
     ) 
 
     try {
@@ -145,11 +144,11 @@ router.post('/student', async (req, res) => {
 
 router.post('/manager', async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, managerObject} = req.body
+        phonenumber, department, role} = req.body
     
     const manager = new User({
         name, idnumber, password, email, 
-            phonenumber, role, managerObject}
+            phonenumber, department, role}
     ) 
 
     try {
@@ -167,7 +166,7 @@ router.post('/manager', async (req, res) => {
 
 router.put('/professor/:id',  async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, professorObject} = req.body
+        phonenumber, department, role, rank, major} = req.body
 
     try {
         const professor = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
@@ -186,7 +185,7 @@ router.put('/professor/:id',  async (req, res) => {
 
 router.put('/student/:id',  async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, studentObject} = req.body
+        phonenumber, department, role, degree, year, term, average} = req.body
 
     try {
         const student = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
@@ -205,11 +204,11 @@ router.put('/student/:id',  async (req, res) => {
 
 router.put('/manager/:id',  async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, managerObject} = req.body
+        phonenumber,  department ,role} = req.body
 
     try {
         const manager = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
-        if(manager == null || student.role != "manager") {
+        if(manager == null || manager.role != "manager") {
             //404 not found
              res.status(404).json({message : "user not found"})
              return

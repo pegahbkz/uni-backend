@@ -22,46 +22,31 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    department: {
+        type: String,
+    },
     role: {
         type: String,
         enum: ['student', 'professor', 'manager', 'admin'],
         required: true
     },
-    studentObject: {
-        degree: {
-            type: String,
-        },
-        year: {
-            type: String,
-        },
-        term: {
-            type: String,
-        },
-        average: {
-            type: String,
-        },
-        department: {
-            type: String,
-        },
-        major: {
-            type: String,
-        }
+    degree: {
+        type: String,
     },
-    professorObject: {
-        rank: {
+    year: {
             type: String,
-        },
-        department: {
-            type: String,
-        },
-        major: {
-            type: String,
-        }
     },
-    managerObject: {
-        department: {
-            type: String,
-        }
+    term: {
+        type: String,
+    },
+    average: {
+        type: String,
+    },
+    rank: {
+        type: String,
+    },
+    major: {
+        type: String,
     }
 })
 

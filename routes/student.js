@@ -2,8 +2,12 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const authenticate = require('../middleware/auth.js')
+const isAdmin = require('../middleware/isAdmin.js')
+const isStudent = require('../middleware/isStudent.js')
+const isManager = require('../middleware/isManager.js')
+const isProfessor = require('../middleware/isProfessor.js')
 
-router.get('/all', async (req, res) => {
+router.get('/all', isManager, async (req, res) => {
     try {
         const students = await User.find({role: "student"})
         res.json(students)
@@ -14,7 +18,7 @@ router.get('/all', async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', isManager, async (req, res) => {
     try {
         const student = await User.findById(req.params.id)
         if(student == null) {
@@ -35,9 +39,9 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.put('/student/:id',  async (req, res) => {
+router.put('/:id',  async (req, res) => {
     const {name, idnumber, password, email, 
-        phonenumber, role, studentObject} = req.body
+        phonenumber, department, role, degree, year, term, average} = req.body
 
     try {
         const student = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
