@@ -1,56 +1,6 @@
 //fetch libraries
 const mongoose = require('mongoose')
 
-const studentSchema = new mongoose.Schema({
-    degree: {
-        type: String,
-        required: true
-    },
-    year: {
-        type: String,
-        required: true
-    },
-    term: {
-        type: String,
-        required: true
-    },
-    average: {
-        type: String,
-        required: true
-    },
-    department: {
-        type: String,
-        required: true
-    },
-    major: {
-        type: String,
-        required: true
-    }
-})
-
-const professorSchema = new mongoose.Schema({
-    rank: {
-        type: String,
-        required: true
-    },
-    department: {
-        type: String,
-        required: true
-    },
-    major: {
-        type: String,
-        required: true
-    }
-})
-
-
-const managerSchema = new mongoose.Schema({
-    department: {
-        type: String,
-        required: true
-    }
-})
-
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -77,9 +27,42 @@ const userSchema = new mongoose.Schema({
         enum: ['student', 'professor', 'manager', 'admin'],
         required: true
     },
-    studentObject: studentSchema,
-    professorObject: professorSchema,
-    managerObject: managerSchema
+    studentObject: {
+        degree: {
+            type: String,
+        },
+        year: {
+            type: String,
+        },
+        term: {
+            type: String,
+        },
+        average: {
+            type: String,
+        },
+        department: {
+            type: String,
+        },
+        major: {
+            type: String,
+        }
+    },
+    professorObject: {
+        rank: {
+            type: String,
+        },
+        department: {
+            type: String,
+        },
+        major: {
+            type: String,
+        }
+    },
+    managerObject: {
+        department: {
+            type: String,
+        }
+    }
 })
 
 module.exports = mongoose.model('User', userSchema);
