@@ -15,13 +15,13 @@ router.get('/Professors', async (req, res) => {
 })
 
 router.get('/Professor/:id', async (req, res) => {
-    let professor
     try {
-        professor = await User.findById(req.params.id)
+        const professor = await User.findById(req.params.id)
         if(professor == null) {
             //404 not found
             return res.status(404)({message: 'Cannot find professor.'})
         }
+        return res.send(professor)
     }
     catch (err){
         return res.status(500).json({message : err.message})
@@ -29,19 +29,20 @@ router.get('/Professor/:id', async (req, res) => {
 })
 
 router.post('/Professor', async (req, res) => {
-    const {name, id, password, email, 
-        phonenumber, rank, department, major} = req.body
+    const {name, idnumber, password, email, 
+        phonenumber, role, professorObject} = req.body
 
     
-    const professor = new Professor({
-        firstname, lastname, id, password, email, 
-        phonenumber, rank, department, major
-    }) 
+    const professor = new User({
+        name, idnumber, password, email, 
+            phonenumber, role, professorObject}
+    ) 
 
     try {
-        const newProfessor = await professor.save()
+        await professor.save()
         //201: successfully created object
         res.status(201).json(newProfessor)
+        return res.send(professor)
     }
     catch (err) {
         //400: wrong user input
@@ -50,20 +51,17 @@ router.post('/Professor', async (req, res) => {
 })
 
 router.put('/Professor/:id', async (req, res) => {
-    const {name, id, password, email, 
-        phonenumber, rank, department, major} = req.body
-
-    let professor = {
-        name, id, password, email, 
-        phonenumber, rank, department, major
-    }
+    const {name, idnumber, password, email, 
+        phonenumber, role, professorObject} = req.body
 
     try {
-        professor = await Professor.findByIdAndUpdate(req.params.id, {$set: professor}, {new: true} )
+        const professor = await User.findByIdAndUpdate(req.params.id, {name, idnumber, password, email, 
+            phonenumber, role, professorObject}, {new: true} )
         if(professor == null) {
             //404 not found
             return res.status(404)({message: 'Cannot find professor.'})
         }
+        return res.send(professor)
     }
     catch (err){
         return res.status(500).json({message : err.message})
@@ -71,13 +69,13 @@ router.put('/Professor/:id', async (req, res) => {
 })
 
 router.delete('/Professor/:id', async (req, res) => {
-    let professor
     try {
-        professor = await Professor.findByIdAndRemove(req.params.id)
+        const professor = await User.findByIdAndDelete(req.params.id)
         if(professor == null) {
             //404 not found
             return res.status(404)({message: 'Cannot find professor.'})
         }
+        return res.send(professor)
     }
     catch (err){
         return res.status(500).json({message : err.message})
