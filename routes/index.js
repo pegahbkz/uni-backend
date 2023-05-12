@@ -5,7 +5,7 @@ const User = require('../models/user')
 
 router.get('/Professors', async (req, res) => {
     try {
-        const professors = await Professor.find()
+        const professors = await User.find()
         res.json(professors)
     }
     catch(err) {
@@ -17,7 +17,7 @@ router.get('/Professors', async (req, res) => {
 router.get('/Professor/:id', async (req, res) => {
     let professor
     try {
-        professor = await Professor.findById(req.params.id)
+        professor = await User.findById(req.params.id)
         if(professor == null) {
             //404 not found
             return res.status(404)({message: 'Cannot find professor.'})
