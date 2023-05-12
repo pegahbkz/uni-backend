@@ -8,53 +8,47 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    prerequisites: [{
-        type: Schema.Types.ObjectID,
-        ref: 'Course'
-    }],
-    requisites: [{
-        type: Schema.Types.ObjectID,
-        ref: 'Course'
-    }],
+    prerequisites: {
+        type: String
+    },
+    requisites: {
+        type: String
+    },
     credits: {
-        type: Number,
+        type: String,
         required: true
-    },
-    classDate: {
-        type: Date,
-        default: Date.now
-    },
-    classTime: {
-        type: String,
-        default: '00:00'
-    },
-    examDate: {
-        type: Date,
-        default: Date.now
-    },
-    examTime: {
-        type: String,
-        default: '00:00'
-    },
-    examLocation: {
-        type: String,
-    },
-    professor: {
-        type: Schema.Types.ObjectID,
-        ref: 'Professor'
-    },
-    capacity: {
-        type: Number,
-
-    },
-    term: {
-        type: String,
     },
     role: {
         type: String,
         enum: ['course', 'availablecourse'],
-        default: 'course'
-      }
+        requires: true
+      },
+    availableObject: {
+        classDate: {
+            type: String
+        },
+        classTime: {
+            type: String
+        },
+        examDate: {
+            type: String
+        },
+        examTime: {
+            type: String
+        },
+        examLocation: {
+            type: String
+        },
+        professor: {
+            type: String
+        },
+        capacity: {
+            type: String
+        },
+        term: {
+            type: String
+        }
+    }
 })
 
 module.exports = mongoose.model('Course', courseSchema);

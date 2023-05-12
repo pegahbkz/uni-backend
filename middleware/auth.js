@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
-const User = require('./models/user')
+const User = require('../models/user')
 
 const auth = async (req, res, next) => {
   const token = req.header('Authorization');

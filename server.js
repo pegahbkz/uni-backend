@@ -1,29 +1,14 @@
+//fetch libraries
 require('dotenv').config()
 
 const bodyParser = require('body-parser')
 const express = require("express")
 const app = express()
-
 app.use(express.json())
 app.use(bodyParser.json())
 
+//connect to database
 const mongoose = require('mongoose')
-
-// const dbconnection = async () =>
-// {
-//   try {
-//     const conn = await mongoose.connect(process.env.DB_URL, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       useFindAndModify: false
-//     })
-//     console.log('Connected to database')
-//   }
-//   catch(err){
-//     console.log(err)
-//   }
-// }
-
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
 const dbconnection = mongoose.connection
@@ -34,11 +19,14 @@ dbconnection.on('error', (error) =>
 dbconnection.once('open', () =>
   console.log('Connected to database'))
 
-
-
-app.use('/api', require('./routes/index.js'))
+//routing
 app.use('/authenticate', require('./routes/login.js'));
+app.use('/api/admin', require('./routes/admin.js'))
+app.use('/api/student', require('./routes/student.js'))
+app.use('/api/professor', require('./routes/professor.js'))
+app.use('/api/course', require('./routes/course.js'))
 
+//listen at port 3000
 const PORT = process.env.port || 3000 
 
 app.listen(PORT,()=>{
