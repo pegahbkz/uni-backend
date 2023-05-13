@@ -6,6 +6,7 @@ const isAdmin = require('../middleware/isAdmin.js')
 const isStudent = require('../middleware/isStudent.js')
 const isManager = require('../middleware/isManager.js')
 const isProfessor = require('../middleware/isProfessor.js')
+const accessLevel = require('../middleware/accessLevel.js')
 
 router.get('/all', isManager, async (req, res) => {
     try {
@@ -39,18 +40,24 @@ router.get('/:id', isManager, async (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', accessLevel ,async (req, res) => {
     const {name, idnumber, password, email, 
         phonenumber, department, role, degree, year, term, average} = req.body
     
     try {
-        const student = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
-        if(student == null || student.role != "student") {
-            //404 not found
-             res.status(404).json({message : "user not found"})
-             return
+        if(req.roleNumber == "3"){
+            var student
+        if(req.studentID == req.params.id){
+             student = await User.findByIdAndUpdate(req.params.id, req.body, {new: true} )
+            if(student == null || student.role != "student") {
+                //404 not found
+                res.status(404).json({message : "user not found"})
+                return
+            }
+            return res.send(student)
         }
-        return res.send(student)
+        }
+            return res.status(401).send('access denied');
     }
     catch (err){
          res.status(500).json({message : err.message})

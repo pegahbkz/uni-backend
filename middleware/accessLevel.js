@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const User = require('../models/user')
 
 //check to see if we have a token
-const isManager = async (req, res, next) => {
+const accessLevel = async (req, res, next) => {
     const token = req.header('Authorization');
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -26,12 +26,17 @@ const isManager = async (req, res, next) => {
             req.studentID = currentUser.id
             next()
         } 
+        if(currentUser.role == "admin") {
+            req.roleNumber = "4"
+            req.studentID = currentUser.id
+            next()
+        } 
 
   } catch (err) {
     console.error(err);
   }
 };
 
-module.exports = isManager;
+module.exports = accessLevel;
 
 
