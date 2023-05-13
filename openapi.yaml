@@ -1,0 +1,617 @@
+openapi: 3.0.3
+info:
+  title: Swagger Uni - OpenAPI 3.0
+  description: |-
+    This is a sample Uni Server based on the OpenAPI 3.0 specification.
+  version: 1.0.0
+tags:
+  - name: login
+    description: logging in to server
+
+  - name: admin
+    description: admin tasks
+
+  - name: manager
+    description: manager tasks
+
+  - name: student
+    description: student tasks
+    
+  - name: professor
+    description: professor tasks
+paths:
+  /authenticate/login:
+    put:
+      tags:
+        - login
+      summary: log in
+      description: login with email and password
+      operationId: login
+      requestBody:
+        description: get email and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginInfo'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/loginInfo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/loginInfo'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Invalid ID credentials
+        '500':
+          description: Internal Server Error
+          
+  /api/admin/student/all:
+    get:
+      tags:
+        - admin
+      summary: Get students
+      description: get a list of all students
+      operationId: getStudentsAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/admin/professor/all:
+    get:
+      tags:
+        - admin
+      summary: Get Professors
+      description: get a list of all professors
+      operationId: getProfessorsAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/admin/manager/all:
+    get:
+      tags:
+        - admin
+      summary: Get Managers
+      description: get a list of all managers
+      operationId: getManagersAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/admin/student/:id:
+    get:
+      tags:
+        - admin
+      summary: Get One Student
+      description: get one student with given id
+      operationId: getOneStudentAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+    put:
+      tags:
+        - admin
+      summary: update student
+      description: update student with the information in req.body
+      operationId: updateStudent
+      requestBody:
+        description: enter new student's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+    delete:
+      tags:
+        - admin
+      summary: delete student
+      description: update student with given id
+      operationId: deleteStudent
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+  /api/admin/professor/:id:
+    get:
+      tags:
+        - admin
+      summary: Get One Professor
+      description: get one professor with given id
+      operationId: getOneProfessorAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+    put:
+      tags:
+        - admin
+      summary: update professor
+      description: update professor with the information in req.body
+      operationId: updateProfessor
+      requestBody:
+        description: enter new professor's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+    delete:
+      tags:
+        - admin
+      summary: delete professor
+      description: update professor with given id
+      operationId: deleteProfessor
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+  /api/admin/manager/:id:
+    get:
+      tags:
+        - admin
+      summary: Get One Manager
+      description: get one manager with given id
+      operationId: getOneManagerAdmin
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+    put:
+      tags:
+        - admin
+      summary: update manager
+      description: update manager with the information in req.body
+      operationId: updateManager
+      requestBody:
+        description: enter new manager's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+    delete:
+      tags:
+        - admin
+      summary: delete manager
+      description: update manager with given id
+      operationId: deleteManager
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+  /api/admin/student:
+    post:
+      tags:
+        - admin
+      summary: Adds a new student
+      description: add student with the information in req.body
+      operationId: addStudentAdmin
+      requestBody:
+        description: enter new student's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '400':
+          description: Invalid input
+          
+  /api/admin/professor:
+    post:
+      tags:
+        - admin
+      summary: Adds a new professor
+      description: add professor with the information in req.body
+      operationId: addProfessorAdmin
+      requestBody:
+        description: enter new professor's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '400':
+          description: Invalid input
+
+  /api/admin/manager:
+    post:
+      tags:
+        - admin
+      summary: Adds a new manager
+      description: add manager with the information in req.body
+      operationId: addManagerAdmin
+      requestBody:
+        description: enter new manager's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '400':
+          description: Invalid input
+          
+  /api/course/all:
+    get:
+      tags:
+        - manager
+        - student
+        - professor
+      summary: Get courses
+      description: get a list of all courses
+      operationId: getCourses
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/admin/course/:id:
+    get:
+      tags:
+        - manager
+        - student
+        - professor
+      summary: Get One Course
+      description: get one course with given id
+      operationId: getOneCourse
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/student/all:
+    get:
+      tags:
+        - manager
+      summary: Get students
+      description: get a list of all students
+      operationId: getStudents
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/professor/all:
+    get:
+      tags:
+        - manager
+      summary: Get Professors
+      description: get a list of all professors
+      operationId: getProfessors
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+          
+  /api/student/:id:
+    get:
+      tags:
+        - manager
+      summary: Get One Student
+      description: get one student with given id
+      operationId: getOneStudent
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+
+    put:
+      tags:
+        - student
+      summary: update student
+      description: update student with the information in req.body
+      operationId: updateStudentAdmin
+      requestBody:
+        description: enter new student's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+          
+  /api/professor/:id:
+    get:
+      tags:
+        - manager
+      summary: Get One Professor
+      description: get one professor with given id
+      operationId: getOneProfessor
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Server Error
+
+    put:
+      tags:
+        - professor
+      summary: update professor
+      description: update professor with the information in req.body
+      operationId: updateProfessoAdmin
+      requestBody:
+        description: enter new professor's info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '404':
+          description: user not found
+        '500':
+          description: server error
+
+
+components:
+  schemas:
+    loginInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        idNumber:
+          type: string
+          example: "1234"
+        password:
+          type: string
+          example: "password111"
+        email:
+          type: string
+          example: "John@example.com"
+        phonenumber:
+          type: string
+          example: "555-555-5555"
+        department:
+          type: string
+          example: "English"
+        role:
+          type: string
+          enum:
+            - professor
+            - student
+            - manager
+            - admin
+        degree:
+          type: string
+          example: "Bachelor's"
+        year:
+          type: string
+          example: "1"
+        term:
+          type: string
+          example: "Fall"
+        average:
+          type: string
+          example: "3.0"
+        rank:
+          type: string
+          example: "Professor"
+        major:
+          type: string
+          example: "Mathematics"
+    Course:
+      type: object
+      properties:
+        name:
+          type: string
+        department:
+          type: string
+        prerequisites:
+          type: string
+        requisites:
+          type: string
+        credits:
+          type: string
+        role:
+          type: string
+          enum:
+            - course
+            - availableCourse
+        classDate:
+          type: string
+        classTime:
+          type: string
+        examDate:
+          type: string
+        examTime:
+          type: string
+        examLocation:
+          type: string
+        professor:
+          type: string
+        capacity:
+          type: string
+        term:
+          type: string
