@@ -21,10 +21,3 @@ This project is a backend implementation for a university website using **Node.j
 ## Prerequisites
 - Node.js and npm installed.
 - MongoDB installed locally or accessible via a cloud database.
-
-## How to Run
-### Steps
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
